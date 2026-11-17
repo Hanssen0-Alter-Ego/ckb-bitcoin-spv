@@ -1,0 +1,26 @@
+name: Host data and IO tests
+on:
+  push:
+    branches: [master, develop, 'release/*']
+  pull_request:
+    branches: [master, 'release/*']
+permissions:
+  contents: read
+jobs:
+  host-data:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        profile: [debug, release]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Rust
+        run: rustup toolchain install 1.76.0 --profile minimal
+      - name: Run independent host test targets
+        env:
+          PROFILE: ${{ matrix.profile }}
+        run: |
+          flags=()
+          if [ "$PROFILE" = release ]; then flags+=(--release); fi
+          cargo +1.76.0 test --locked -p ckb-bitcoin-spv-verifier --test host_data "${flags[@]}"
+          cargo +1.76.0 test --locked -p ckb-bitcoin-spv-prover --test host_io "${flags[@]}"
