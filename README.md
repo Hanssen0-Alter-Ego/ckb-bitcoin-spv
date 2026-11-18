@@ -26,18 +26,15 @@ Licensed under [MIT License].
 
 [MIT License]: LICENSE
 
-## Independent host data tests
+## Tests
 
-These targets check ordinary serialized data layouts, conversions and file IO.
-They do not need the test-data submodule, a running node or a CKB VM, and do not
-execute the workspace's proof-verification tests:
+Run the workspace suite with `make test`. To run only the data-layout and IO
+tests without the test-data submodule:
 
 ```sh
 cargo test --locked -p ckb-bitcoin-spv-verifier --test host_data
 cargo test --locked -p ckb-bitcoin-spv-prover --test host_io
 ```
 
-Add `--release` to exercise the release profile. The separate **Host data and IO
-tests** workflow runs both profiles. These tests supplement, not replace, the
-existing workspace suite; passing them does not validate proof verification or
-contract integration.
+Add `--release` to test optimized builds. These targets supplement, not replace,
+the workspace's proof-verification tests.

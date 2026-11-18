@@ -59,3 +59,8 @@ jobs:
         run: make build
       - name: Unit Testing
         run: make test
+      - name: Host data and IO tests (release)
+        if: runner.os == 'Linux'
+        run: |
+          cargo test --locked --release -p ckb-bitcoin-spv-verifier --test host_data
+          cargo test --locked --release -p ckb-bitcoin-spv-prover --test host_io
