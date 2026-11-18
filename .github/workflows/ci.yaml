@@ -63,5 +63,6 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           cargo test --locked --release -p ckb-bitcoin-spv-verifier --test core_verification
+          cargo test --locked --release -p ckb-bitcoin-spv-verifier --test client_updates
           cargo test --locked --release -p ckb-bitcoin-spv-verifier --test host_data
           cargo test --locked --release -p ckb-bitcoin-spv-prover --test host_io
