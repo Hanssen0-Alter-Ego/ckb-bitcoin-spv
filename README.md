@@ -25,3 +25,16 @@ Licensed under [MIT License].
 [CKB]: https://github.com/nervosnetwork/ckb
 
 [MIT License]: LICENSE
+
+## Tests
+
+Run the workspace suite with `make test`. To run only the data-layout and IO
+tests without the test-data submodule:
+
+```sh
+cargo test --locked -p ckb-bitcoin-spv-verifier --test host_data
+cargo test --locked -p ckb-bitcoin-spv-prover --test host_io
+```
+
+Add `--release` to test optimized builds. These targets supplement, not replace,
+the workspace's proof-verification tests.
